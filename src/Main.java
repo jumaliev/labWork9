@@ -13,14 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         LocalDate localDate = LocalDate.parse("25.05.2024", TO);
-        Task task = new Task("написать код", localDate , Priority.HIGH);
-        System.out.println(task);
-        LocalDate.now().format(TO);
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(task);
-        Util.writeFile(taskList);
-        System.out.println(Util.readFile());
-        ;
+        Task task = new Task("написать код", localDate.format(TO) , Priority.HIGH);
+        Task task1 = new Task("dewf", "25.05.2025", Priority.LOW);
 
     }
 }

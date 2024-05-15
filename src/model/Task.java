@@ -2,37 +2,33 @@ package model;
 
 import data.Priority;
 import exceptions.TaskStatusException;
-import statuses.Done;
 import statuses.Status;
-
-import javax.xml.transform.TransformerConfigurationException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
     private final String title;
     private String description;
-    private LocalDate completionDate;
-    private LocalDate createdDate;
+    private String completionDate;
+    private String createdDate;
     private Priority priority;
     private Status status;
     private transient boolean expired;
-    DateTimeFormatter to = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    public static final DateTimeFormatter TO = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    public Task(String title, LocalDate completionDate, Priority priority) {
+    public Task(String title, String completionDate, Priority priority) {
         this.title = title;
         this.completionDate = completionDate;
-        this.createdDate = LocalDate.now();
+        this.createdDate = LocalDate.now().format(TO);
         this.priority = priority;
         this.expired = false;
     }
 
-    public Task(String title, String description, LocalDate completionDate, LocalDate createdDate, Priority priority) {
+    public Task(String title, String description, String completionDate, Priority priority) {
         this.title = title;
         this.description = description;
         this.completionDate = completionDate;
-        this.createdDate = createdDate;
+        this.createdDate = LocalDate.now().format(TO);
         this.priority = priority;
         this.expired = false;
     }
@@ -43,6 +39,50 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(String completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 
     public void inProgress() {
@@ -77,8 +117,8 @@ public class Task {
         return "\nЗадача: " +
                 "\nНазвание: " + title +
                 "\nОписание: " + description +
-                "\nДата завершения: " + completionDate.format(to) +
-                "\nДата создания: " + createdDate.format(to) +
+                "\nДата завершения: " + completionDate +
+                "\nДата создания: " + createdDate +
                 "\nПриоритет: " + priority +
                 "\nСтатус: " + status;
     }

@@ -1,11 +1,8 @@
 package utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import model.Task;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,23 +13,27 @@ import java.util.List;
 public class Util {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path PATH = Paths.get("src/data/tasks.json");
-    private static final String FILENAME = "src/data/tasks.json";
-
-
-    public static void writeFile(List<Task> tasks) {
-        try (FileWriter writer = new FileWriter(FILENAME)) {
-            GSON.toJson(tasks, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static List<Task> readFile() {
-        try (FileReader reader = new FileReader(FILENAME)) {
-            return GSON.fromJson(reader, new TypeToken<List<Task>>(){}.getType());
+        List<Task> tasks = new ArrayList<>();
+        try {
+            String str = Files.readString(PATH);
+            return List.of(GSON.fromJson(str, Task[].class));
         } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return tasks;
+        }
+    }
+    public static void writeFile(List<Task> trucks) {
+        String newJson = GSON.toJson(trucks);
+        byte[] bytes = newJson.getBytes();
+        try {
+            Files.write(PATH, bytes);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return null;
     }
+
+
 }
