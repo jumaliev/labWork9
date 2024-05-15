@@ -8,6 +8,7 @@ import statuses.Status;
 import javax.xml.transform.TransformerConfigurationException;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private final String title;
@@ -17,10 +18,12 @@ public class Task {
     private Priority priority;
     private Status status;
     private transient boolean expired;
+    DateTimeFormatter to = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public Task(String title, LocalDate completionDate, Priority priority) {
         this.title = title;
         this.completionDate = completionDate;
+        this.createdDate = LocalDate.now();
         this.priority = priority;
         this.expired = false;
     }
@@ -41,17 +44,15 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void removeTask() {
 
-    }
-    public void inProgress() throws TaskStatusException {
+    public void inProgress() {
         try {
             status.in_progress(this);
         } catch (TaskStatusException e) {
             System.out.println(e.getMessage());
         }
     }
-    public void editDescription() throws TaskStatusException {
+    public void editDescription() {
         try {
             status.editDescription(this);
         } catch (TaskStatusException e) {
@@ -67,14 +68,17 @@ public class Task {
 
         }
     }
+    public void removeTask() {
+
+    }
 
     @Override
     public String toString() {
         return "\nЗадача: " +
                 "\nНазвание: " + title +
                 "\nОписание: " + description +
-                "\nДата завершения: " + completionDate +
-                "\nДата создания: " + createdDate +
+                "\nДата завершения: " + completionDate.format(to) +
+                "\nДата создания: " + createdDate.format(to) +
                 "\nПриоритет: " + priority +
                 "\nСтатус: " + status;
     }
