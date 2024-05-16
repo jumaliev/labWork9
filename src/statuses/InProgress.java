@@ -16,7 +16,7 @@ public class InProgress implements Status{
     }
 
     @Override
-    public void editDescription(Task task) throws TaskStatusException {
+    public void editDescription(Task task, String description) throws TaskStatusException {
         throw new TaskStatusException("Нельзя менять описание задачи!");
     }
 

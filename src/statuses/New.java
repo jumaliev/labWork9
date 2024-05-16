@@ -3,8 +3,6 @@ package statuses;
 import exceptions.TaskStatusException;
 import model.Task;
 
-import java.util.Scanner;
-
 public class New implements Status{
     @Override
     public void in_progress(Task task) {
@@ -19,10 +17,8 @@ public class New implements Status{
     }
 
     @Override
-    public void editDescription(Task task) {
-        System.out.print("Введите новое описание для задачи:");
-        String userStr = new Scanner(System.in).nextLine();
-        task.setDescription(userStr);
+    public void editDescription(Task task, String description) {
+        task.setDescription(description);
     }
 
     @Override

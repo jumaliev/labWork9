@@ -15,6 +15,13 @@ public class Main {
         LocalDate localDate = LocalDate.parse("25.05.2024", TO);
         Task task = new Task("написать код", localDate.format(TO) , Priority.HIGH);
         Task task1 = new Task("dewf", "25.05.2025", Priority.LOW);
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(task);
+        Util.writeFile(tasks);
+        tasks.add(task1);
+        System.out.println(task1);
+        Util.writeFile(tasks);
+        System.out.println(Util.readFile());
 
     }
 }

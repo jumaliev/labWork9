@@ -41,48 +41,8 @@ public class Task {
         this.description = description;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getCompletionDate() {
-        return completionDate;
-    }
-
-    public void setCompletionDate(String completionDate) {
-        this.completionDate = completionDate;
-    }
-
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Priority getPriority() {
         return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public boolean isExpired() {
-        return expired;
-    }
-
-    public void setExpired(boolean expired) {
-        this.expired = expired;
     }
 
     public void inProgress() {
@@ -92,12 +52,8 @@ public class Task {
             System.out.println(e.getMessage());
         }
     }
-    public void editDescription() {
-        try {
-            status.editDescription(this);
-        } catch (TaskStatusException e) {
-            System.out.println(e.getMessage());
-        }
+    public void editDescription(String description) throws TaskStatusException {
+        status.editDescription(this, description);
 
     }
     public void done() {
@@ -109,6 +65,9 @@ public class Task {
         }
     }
     public void removeTask() {
+
+    }
+    public void addTask(Task task) {
 
     }
 

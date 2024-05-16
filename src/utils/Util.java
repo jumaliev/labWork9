@@ -2,8 +2,7 @@ package utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.Task;
-
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,8 +23,8 @@ public class Util {
             return tasks;
         }
     }
-    public static void writeFile(List<Task> trucks) {
-        String newJson = GSON.toJson(trucks);
+    public static void writeFile(List<Task> tasks) {
+        String newJson = GSON.toJson(tasks);
         byte[] bytes = newJson.getBytes();
         try {
             Files.write(PATH, bytes);
